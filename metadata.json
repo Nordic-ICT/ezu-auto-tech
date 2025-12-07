@@ -1,0 +1,7 @@
+{
+  "name": "Ezzu Autotech Trading PLC",
+  "description": "Premium automotive technology and industrial solutions provider with multiple specialized branches.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
