@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { MessageCircle, X, Send, Bot, Loader2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { sendChatMessage } from '../services/geminiService';
 
 const AIChatBot: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -28,14 +27,18 @@ const AIChatBot: React.FC = () => {
     setMessages(prev => [...prev, { role: 'user', content: userMsg }]);
     setLoading(true);
 
-    try {
-      const response = await sendChatMessage(userMsg, messages);
-      setMessages(prev => [...prev, { role: 'model', content: response }]);
-    } catch (error) {
-      setMessages(prev => [...prev, { role: 'model', content: "Sorry, I encountered an error. Please try again." }]);
-    } finally {
+    // Gemini integration removed – respond with a friendly static message
+    setTimeout(() => {
+      setMessages(prev => [
+        ...prev,
+        {
+          role: 'model',
+          content:
+            "Our live AI assistant is currently disabled in this version. Please explore the catalog, or contact our branches and team for detailed support.",
+        },
+      ]);
       setLoading(false);
-    }
+    }, 500);
   };
 
   return (

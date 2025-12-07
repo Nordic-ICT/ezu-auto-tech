@@ -2,7 +2,13 @@ import { GoogleGenAI } from "@google/genai";
 import { PRODUCTS, BRANCHES, COMPANY_NAME } from '../constants';
 
 // Initialize the API client
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+
+if (!apiKey) {
+  console.warn("VITE_GEMINI_API_KEY is not set. AI assistant will be disabled.");
+}
+
+const ai = apiKey ? new GoogleGenAI({ apiKey }) : null;
 
 const SYSTEM_INSTRUCTION = `
 You are the intelligent sales assistant for ${COMPANY_NAME}. 
@@ -23,6 +29,11 @@ export const sendChatMessage = async (
   message: string,
   history: { role: 'user' | 'model'; content: string }[]
 ): Promise<string> => {
+  if (!apiKey || !ai) {
+    console.error("Gemini API key is missing. Please set VITE_GEMINI_API_KEY.");
+    return "Our AI assistant is temporarily unavailable. Please contact us directly or visit a branch for support.";
+  }
+
   try {
     const chat = ai.chats.create({
       model: 'gemini-2.5-flash',

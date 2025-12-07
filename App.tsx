@@ -8,7 +8,6 @@ import Products from './pages/Products';
 import ProductDetail from './pages/ProductDetail';
 import Contact from './pages/Contact';
 import About from './pages/About';
-import AIChatBot from './components/AIChatBot';
 
 // Scroll to top component
 const ScrollToTop = () => {
@@ -79,8 +78,6 @@ const App: React.FC = () => {
             <Route path="/contact" element={<Contact />} />
           </Routes>
         </main>
-        
-        <AIChatBot />
         <Footer />
       </div>
     </Router>
